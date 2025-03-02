@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool linearSearch(const vector<int>& data, int target) {
+    for (const auto& num : data) {
+        if (num == target) return true;
+    }
+    return false;
+}
+bool binarySearch(const vector<int>& data, int target) {
+    int left = 0, right = data.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (data[mid] == target) return true;
+        else if (data[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return false;
+}
+
+int main() {
+    vector<int> data = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
+    int target = 7;
+    
+    // Linear search test
+    if (linearSearch(data, target)) {
+        cout << "Linear Search: Target found" << endl;
+    } else {
+        cout << "Linear Search: Target not found" << endl;
+    }
+    
+    // Binary search test (on sorted data)
+    if (binarySearch(data, target)) {
+        cout << "Binary Search: Target found" << endl;
+    } else {
+        cout << "Binary Search: Target not found" << endl;
+    }
+    
+    return 0;
+}
