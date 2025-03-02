@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+void findMaxMin(int arr[], int size, int &maxElement, int &minElement) {
+    maxElement = INT_MIN;
+    minElement = INT_MAX;
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > maxElement) {
+            maxElement = arr[i];
+        }
+        if (arr[i] < minElement) {
+            minElement = arr[i];
+        }
+    }
+}
+
+int main() {
+    int arr[] = {12, 5, 8, 19, 1, 25, 7};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int maxElement, minElement;
+    findMaxMin(arr, size, maxElement, minElement);
+
+    cout << "Maximum Element: " << maxElement << endl;
+    cout << "Minimum Element: " << minElement << endl;
+    cout << "Time Complexity: O(n)" << endl;
+    cout << "Space Complexity: O(1)" << endl;
+    
+    return 0;
+}
