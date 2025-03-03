@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+double calculateDistance(pair<int, int> point1, pair<int, int> point2) {
+    return sqrt(pow(point2.first - point1.first, 2) + pow(point2.second - point1.second, 2));
+}
+
+int findNearestCity(int currentCity, vector<bool>& visited, vector<pair<int, int>>& cities) {
+    int nearestCity = -1;
+    double minDistance = INT_MAX;
+
+    for (int i = 0; i < cities.size(); i++) {
+        if (!visited[i] && i != currentCity) {
+            double distance = calculateDistance(cities[currentCity], cities[i]);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestCity = i;
+            }
+        }
+    }
+    return nearestCity;
+}
+
+double greedyTSP(vector<pair<int, int>>& cities) {
+    int n = cities.size();
+    vector<bool> visited(n, false);
+    visited[0] = true;  // Start from the first city
+
+    int currentCity = 0;
+    double totalDistance = 0;
+
+    for (int i = 1; i < n; i++) {
+        int nextCity = findNearestCity(currentCity, visited, cities);
+        visited[nextCity] = true;
+        totalDistance += calculateDistance(cities[currentCity], cities[nextCity]);
+        currentCity = nextCity;
+    }
+
+    totalDistance += calculateDistance(cities[currentCity], cities[0]);
+
+    return totalDistance;
+}
+
+int main() {
+    vector<pair<int, int>> cities = {
+        {0, 0}, {2, 2}, {3, 10}, {5, 2}, {7, 8}
+    };
+
+    double totalDistance = greedyTSP(cities);
+    cout << "Total distance of the TSP tour (Greedy): " << totalDistance << endl;
+
+    return 0;
+}
